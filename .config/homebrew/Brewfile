@@ -15,6 +15,7 @@ brew "cargo-nextest"
 brew "just"
 brew "libffi"
 brew "rustup"
+brew "mdbook"
 
 # swift
 brew "fastlane"
