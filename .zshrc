@@ -91,3 +91,16 @@ eval "$(fzf --zsh)"
 # Starship
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 eval "$(starship init zsh)"
+# pnpm
+export PNPM_HOME="/Users/anniehedgpeth/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/anniehedgpeth/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/anniehedgpeth/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/anniehedgpeth/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/anniehedgpeth/Downloads/google-cloud-sdk/completion.zsh.inc'; fi

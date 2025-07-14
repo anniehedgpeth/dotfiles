@@ -8,6 +8,7 @@ brew "gh"
 brew "git"
 brew "starship"
 brew "tree"
+brew "jq"
 
 # rust
 brew "cargo-binstall"

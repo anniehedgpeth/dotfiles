@@ -1,6 +1,6 @@
 [user]
 	name = Annie Hedgpeth
-	email = 18335499+anniehedgpeth@users.noreply.github.com
+	email = annie@hedge-ops.com
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
