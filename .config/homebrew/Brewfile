@@ -29,6 +29,9 @@ brew "xcode-build-server"
 # web
 brew "node"
 brew "pnpm"
+tap "oven-sh/bun"
+brew "bun"
+brew "zola"
 
 # macOS
 cask "slack"
