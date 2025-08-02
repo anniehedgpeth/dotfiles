@@ -68,6 +68,7 @@ repositories=(
   "hedge-ops/app"
   "hedge-ops/product-website"
   "hedge-ops/company-website"
+  "hedge-ops/website"
   "hedge-ops/prototyping"
 )
 

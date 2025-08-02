@@ -49,10 +49,6 @@ sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 From here to ensure everything is proper, run `update`. It's meant to be run
 as many times as you want.
 
-## Configure
-
-To configure settings, run `configure.sh` and restart your mac.
-
 ## Secrets
 
 Copy `.env.template` to `~/.env` and add the appropriate values.
