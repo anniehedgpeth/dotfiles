@@ -33,6 +33,7 @@ brew "pnpm"
 tap "oven-sh/bun"
 brew "bun"
 brew "zola"
+brew "imagemagick"
 
 # macOS
 cask "slack"
