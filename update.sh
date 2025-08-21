@@ -28,6 +28,12 @@ if ! command -v rustup &> /dev/null; then
     exit 1
 fi
 
+# Clean up any conflicting Homebrew symlinks in ~/.cargo/bin
+if [ -L ~/.cargo/bin/rustup ]; then
+    rm ~/.cargo/bin/rustup
+    echo "${BLUE}Removed conflicting rustup symlink${RESET}"
+fi
+
 # Install and set stable as default
 rustup toolchain install stable
 rustup default stable
@@ -38,7 +44,36 @@ if command -v cargo &> /dev/null; then
     echo "${GREEN}✅ Rust setup complete - $(rustc --version)${RESET}"
     echo "${GREEN}✅ Cargo available - $(cargo --version)${RESET}"
 else
-    echo "${RED}❌ Cargo not found after rustup setup${RESET}"
+    echo "${BLUE}Cargo not found in PATH, checking if manual symlinks are needed...${RESET}"
+    
+    # Check if cargo exists in the toolchain but not in ~/.cargo/bin
+    if rustup which cargo &> /dev/null && [ ! -f ~/.cargo/bin/cargo ]; then
+        echo "${BLUE}Creating symlinks for Rust tools in ~/.cargo/bin${RESET}"
+        
+        # Get the active toolchain path
+        TOOLCHAIN_PATH=$(rustup which cargo | sed 's|/bin/cargo||')
+        
+        # Create symlinks for main tools
+        ln -sf "$TOOLCHAIN_PATH/bin/cargo" ~/.cargo/bin/cargo
+        ln -sf "$TOOLCHAIN_PATH/bin/rustc" ~/.cargo/bin/rustc
+        ln -sf "$TOOLCHAIN_PATH/bin/rustfmt" ~/.cargo/bin/rustfmt
+        ln -sf "$TOOLCHAIN_PATH/bin/clippy-driver" ~/.cargo/bin/clippy-driver
+        
+        # Check if rust-analyzer exists and link it
+        if [ -f "$TOOLCHAIN_PATH/bin/rust-analyzer" ]; then
+            ln -sf "$TOOLCHAIN_PATH/bin/rust-analyzer" ~/.cargo/bin/rust-analyzer
+        fi
+        
+        echo "${GREEN}✅ Created Rust tool symlinks${RESET}"
+    fi
+    
+    # Final verification
+    if command -v cargo &> /dev/null; then
+        echo "${GREEN}✅ Rust setup complete - $(rustc --version)${RESET}"
+        echo "${GREEN}✅ Cargo available - $(cargo --version)${RESET}"
+    else
+        echo "${RED}❌ Cargo still not found after setup${RESET}"
+    fi
 fi
 
 echo "${GREEN}Ensuring repositories are cloned${RESET}"
