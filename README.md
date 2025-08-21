@@ -1,6 +1,6 @@
 # dotfiles
 
-This repository manages the dotfiles for Annie Hedgpeth.
+This repository manages the dotfiles.
 
 ## Reset Mac
 

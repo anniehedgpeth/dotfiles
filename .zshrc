@@ -75,8 +75,6 @@ alias update='./update.sh'
 # personal 
 alias app='cd ~/source/github/hedge-ops/app/'
 alias dev='app && code'
-# alias learning='cd ~/source/github/anniehedgpeth/learning/ '
-# alias learn='learning && code'
 alias people='cd ~/people'
 alias dotfiles='cd ~/dotfiles'
 alias j='just'
@@ -92,7 +90,7 @@ eval "$(fzf --zsh)"
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 eval "$(starship init zsh)"
 # pnpm
-export PNPM_HOME="/Users/anniehedgpeth/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -100,7 +98,7 @@ esac
 # pnpm end
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/anniehedgpeth/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/anniehedgpeth/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/anniehedgpeth/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/anniehedgpeth/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"; fi
