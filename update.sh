@@ -42,11 +42,43 @@ rustup update
 # Ensure essential components are installed
 rustup component add rustfmt clippy rust-src
 
-# Verify cargo and rustfmt are available
+# Get the active toolchain path for manual symlink creation if needed
+TOOLCHAIN_PATH=$(rustup which cargo | sed 's|/bin/cargo||')
+
+# Ensure cargo-fmt and cargo-clippy symlinks exist for cargo subcommands
+for cmd in cargo-fmt cargo-clippy; do
+    if [ ! -f ~/.cargo/bin/$cmd ] && [ -f "$TOOLCHAIN_PATH/bin/$cmd" ]; then
+        ln -sf "$TOOLCHAIN_PATH/bin/$cmd" ~/.cargo/bin/$cmd
+        echo "${BLUE}Created $cmd symlink${RESET}"
+    fi
+done
+
+# Verify all tools are available
 if command -v cargo &> /dev/null && command -v rustfmt &> /dev/null; then
     echo "${GREEN}✅ Rust setup complete - $(rustc --version)${RESET}"
     echo "${GREEN}✅ Cargo available - $(cargo --version)${RESET}"
     echo "${GREEN}✅ Rustfmt available - $(rustfmt --version)${RESET}"
+    
+    # Test cargo fmt and clippy specifically
+    if cargo fmt --version &> /dev/null && cargo clippy --version &> /dev/null; then
+        echo "${GREEN}✅ Cargo fmt and clippy available${RESET}"
+    else
+        echo "${BLUE}Some cargo subcommands not working, attempting manual fix...${RESET}"
+        
+        # Create all necessary cargo subcommand symlinks
+        for cmd in cargo-fmt cargo-clippy; do
+            if [ -f "$TOOLCHAIN_PATH/bin/$cmd" ] && [ ! -f ~/.cargo/bin/$cmd ]; then
+                ln -sf "$TOOLCHAIN_PATH/bin/$cmd" ~/.cargo/bin/$cmd
+                echo "${BLUE}Created $cmd symlink${RESET}"
+            fi
+        done
+        
+        # Test again
+        cargo_fmt_ok=$(cargo fmt --version &> /dev/null && echo "✅" || echo "❌")
+        cargo_clippy_ok=$(cargo clippy --version &> /dev/null && echo "✅" || echo "❌")
+        echo "${GREEN}${cargo_fmt_ok} Cargo fmt status${RESET}"
+        echo "${GREEN}${cargo_clippy_ok} Cargo clippy status${RESET}"
+    fi
 else
     echo "${BLUE}Some Rust tools not found in PATH, checking if manual symlinks are needed...${RESET}"
     
@@ -54,19 +86,32 @@ else
     if rustup which cargo &> /dev/null; then
         echo "${BLUE}Creating symlinks for Rust tools in ~/.cargo/bin${RESET}"
         
-        # Get the active toolchain path
-        TOOLCHAIN_PATH=$(rustup which cargo | sed 's|/bin/cargo||')
-        
         # Create symlinks for main tools
         ln -sf "$TOOLCHAIN_PATH/bin/cargo" ~/.cargo/bin/cargo
         ln -sf "$TOOLCHAIN_PATH/bin/rustc" ~/.cargo/bin/rustc
         ln -sf "$TOOLCHAIN_PATH/bin/rustfmt" ~/.cargo/bin/rustfmt
         ln -sf "$TOOLCHAIN_PATH/bin/clippy-driver" ~/.cargo/bin/clippy-driver
         
+        # Create cargo subcommand symlinks
+        for cmd in cargo-fmt cargo-clippy; do
+            if [ -f "$TOOLCHAIN_PATH/bin/$cmd" ]; then
+                ln -sf "$TOOLCHAIN_PATH/bin/$cmd" ~/.cargo/bin/$cmd
+            fi
+        done
+        
         echo "${GREEN}✅ Created Rust tool symlinks${RESET}"
         echo "${GREEN}✅ Rust setup complete - $(rustc --version)${RESET}"
         echo "${GREEN}✅ Cargo available - $(cargo --version)${RESET}"
         echo "${GREEN}✅ Rustfmt available - $(rustfmt --version)${RESET}"
+        
+        if cargo fmt --version &> /dev/null && cargo clippy --version &> /dev/null; then
+            echo "${GREEN}✅ Cargo fmt and clippy available${RESET}"
+        else
+            cargo_fmt_ok=$(cargo fmt --version &> /dev/null && echo "✅" || echo "❌")
+            cargo_clippy_ok=$(cargo clippy --version &> /dev/null && echo "✅" || echo "❌")
+            echo "${GREEN}${cargo_fmt_ok} Cargo fmt status${RESET}"
+            echo "${GREEN}${cargo_clippy_ok} Cargo clippy status${RESET}"
+        fi
     else
         echo "${RED}❌ Rust tools not found after setup${RESET}"
     fi
