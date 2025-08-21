@@ -45,6 +45,9 @@ rustup component add rustfmt clippy rust-src
 # Get the active toolchain path for manual symlink creation if needed
 TOOLCHAIN_PATH=$(rustup which cargo | sed 's|/bin/cargo||')
 
+# Ensure ~/.cargo/bin directory exists
+mkdir -p ~/.cargo/bin
+
 # Ensure cargo-fmt and cargo-clippy symlinks exist for cargo subcommands
 for cmd in cargo-fmt cargo-clippy; do
     if [ ! -f ~/.cargo/bin/$cmd ] && [ -f "$TOOLCHAIN_PATH/bin/$cmd" ]; then
@@ -85,6 +88,9 @@ else
     # Check if tools exist in the toolchain but not in ~/.cargo/bin
     if rustup which cargo &> /dev/null; then
         echo "${BLUE}Creating symlinks for Rust tools in ~/.cargo/bin${RESET}"
+        
+        # Ensure ~/.cargo/bin directory exists
+        mkdir -p ~/.cargo/bin
         
         # Create symlinks for main tools
         ln -sf "$TOOLCHAIN_PATH/bin/cargo" ~/.cargo/bin/cargo

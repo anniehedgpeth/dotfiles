@@ -1,5 +1,4 @@
 # terminal
-tap "homebrew/bundle"
 cask "ghostty"
 cask "font-fira-code-nerd-font"
 cask "font-jetbrains-mono-nerd-font"
