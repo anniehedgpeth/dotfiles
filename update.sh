@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CURRENT_DIR=$(pwd)
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
@@ -20,18 +22,28 @@ brew bundle cleanup --force
 
 echo "${GREEN}Ensuring rust toolchain is up to date${RESET}"
 
-rustup install stable
+# Ensure rustup is available
+if ! command -v rustup &> /dev/null; then
+    echo "${RED}rustup not found - make sure it's installed via Homebrew${RESET}"
+    exit 1
+fi
+
+# Install and set stable as default
+rustup toolchain install stable
+rustup default stable
+rustup update
+
+# Verify cargo is available
+if command -v cargo &> /dev/null; then
+    echo "${GREEN}✅ Rust setup complete - $(rustc --version)${RESET}"
+    echo "${GREEN}✅ Cargo available - $(cargo --version)${RESET}"
+else
+    echo "${RED}❌ Cargo not found after rustup setup${RESET}"
+fi
 
 echo "${GREEN}Ensuring repositories are cloned${RESET}"
 # Base directory for code repositories
 CODE_DIR="$HOME/source/github"
-
-# Check if ~/.cargo directory exists
-if [ ! -d "$HOME/.cargo" ]; then
-  echo "${BLUE}Cargo directory not found. Installing Rust...${RESET}"
-  # Run rustup-init
-  rustup-init
-fi
 
 # Function to create directory if it doesn't exist
 create_directory() {
@@ -50,7 +62,7 @@ clone_if_not_exists() {
     echo "${BLUE}Cloning repository: $repo_url${RESET}"
     gh repo clone "$repo_url" "$repo_path"
   else
-    echo "${GREEN}Repository already exists: $repo_path${GREEN}"
+    echo "${GREEN}Repository already exists: $repo_path${RESET}"
   fi
 }
 
