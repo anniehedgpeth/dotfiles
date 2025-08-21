@@ -12,7 +12,7 @@ softwareupdate -i -a
 
 echo "${GREEN}Ensuring brew is up to date${RESET}"
 
-export HOMEBREW_BUNDLE_FILE="~/dotfiles/.config/homebrew/Brewfile"
+export HOMEBREW_BUNDLE_FILE="$HOME/dotfiles/.config/homebrew/Brewfile"
 
 brew bundle install
 
@@ -39,15 +39,19 @@ rustup toolchain install stable
 rustup default stable
 rustup update
 
-# Verify cargo is available
-if command -v cargo &> /dev/null; then
+# Ensure essential components are installed
+rustup component add rustfmt clippy rust-src
+
+# Verify cargo and rustfmt are available
+if command -v cargo &> /dev/null && command -v rustfmt &> /dev/null; then
     echo "${GREEN}✅ Rust setup complete - $(rustc --version)${RESET}"
     echo "${GREEN}✅ Cargo available - $(cargo --version)${RESET}"
+    echo "${GREEN}✅ Rustfmt available - $(rustfmt --version)${RESET}"
 else
-    echo "${BLUE}Cargo not found in PATH, checking if manual symlinks are needed...${RESET}"
+    echo "${BLUE}Some Rust tools not found in PATH, checking if manual symlinks are needed...${RESET}"
     
-    # Check if cargo exists in the toolchain but not in ~/.cargo/bin
-    if rustup which cargo &> /dev/null && [ ! -f ~/.cargo/bin/cargo ]; then
+    # Check if tools exist in the toolchain but not in ~/.cargo/bin
+    if rustup which cargo &> /dev/null; then
         echo "${BLUE}Creating symlinks for Rust tools in ~/.cargo/bin${RESET}"
         
         # Get the active toolchain path
@@ -59,21 +63,23 @@ else
         ln -sf "$TOOLCHAIN_PATH/bin/rustfmt" ~/.cargo/bin/rustfmt
         ln -sf "$TOOLCHAIN_PATH/bin/clippy-driver" ~/.cargo/bin/clippy-driver
         
-        # Check if rust-analyzer exists and link it
-        if [ -f "$TOOLCHAIN_PATH/bin/rust-analyzer" ]; then
-            ln -sf "$TOOLCHAIN_PATH/bin/rust-analyzer" ~/.cargo/bin/rust-analyzer
-        fi
-        
         echo "${GREEN}✅ Created Rust tool symlinks${RESET}"
-    fi
-    
-    # Final verification
-    if command -v cargo &> /dev/null; then
         echo "${GREEN}✅ Rust setup complete - $(rustc --version)${RESET}"
         echo "${GREEN}✅ Cargo available - $(cargo --version)${RESET}"
+        echo "${GREEN}✅ Rustfmt available - $(rustfmt --version)${RESET}"
     else
-        echo "${RED}❌ Cargo still not found after setup${RESET}"
+        echo "${RED}❌ Rust tools not found after setup${RESET}"
     fi
+fi
+
+echo "${GREEN}Ensuring required cargo packages are installed${RESET}"
+
+# Check if mdbook-admonish is installed
+if ! cargo install --list | grep -q "^mdbook-admonish"; then
+  echo "${BLUE}Installing mdbook-admonish...${RESET}"
+  cargo install mdbook-admonish
+else
+  echo "${GREEN}mdbook-admonish is already installed${RESET}"
 fi
 
 echo "${GREEN}Ensuring repositories are cloned${RESET}"
@@ -117,6 +123,12 @@ repositories=(
   "hedge-ops/company-website"
   "hedge-ops/website"
   "hedge-ops/prototyping"
+  "hedge-ops/homebrew-tap"
+  "hedge-ops/people-work-releases"
+  "hedge-ops/people-work-demo-workspace"
+  "hedge-ops/vscode-pwl"
+  "hedge-ops/apple-certs"
+  "hedge-ops/tree-sitter-pwl"
 )
 
 # Create necessary parent directories and clone repositories
@@ -175,6 +187,6 @@ for dir in "${config_dirs_to_link[@]}"; do
   fi
 done
 
-cd "$CURRENT_DIR"
+cd "$CURRENT_DIR" || exit
 
 echo "${GREEN}Done!${RESET}"
