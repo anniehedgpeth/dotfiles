@@ -17,6 +17,12 @@ brew "libffi"
 brew "rustup"
 brew "mdbook"
 
+# cloud
+tap "hashicorp/tap"
+brew "hashicorp/tap/terraform"
+brew "tflint"
+brew "doctl"
+
 # swift
 brew "fastlane"
 brew "ruby-install"
