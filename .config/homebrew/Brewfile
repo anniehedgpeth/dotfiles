@@ -22,6 +22,7 @@ tap "hashicorp/tap"
 brew "hashicorp/tap/terraform"
 brew "tflint"
 brew "doctl"
+cask "postman"
 
 # swift
 brew "fastlane"
