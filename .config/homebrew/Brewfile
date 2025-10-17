@@ -23,6 +23,8 @@ brew "hashicorp/tap/terraform"
 brew "tflint"
 brew "doctl"
 cask "postman"
+brew "stripe/stripe-cli/stripe"
+cask "ngrok"
 
 # swift
 brew "fastlane"
