@@ -17,7 +17,6 @@ brew "cargo-nextest"
 brew "just"
 brew "libffi"
 brew "rustup"
-brew "mdbook"
 
 # cloud
 brew "doctl"
