@@ -91,6 +91,7 @@ export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 eval "$(starship init zsh)"
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
+export PATH="/opt/homebrew/opt/node@24/bin:$PATH"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;

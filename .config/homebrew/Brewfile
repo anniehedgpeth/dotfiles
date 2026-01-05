@@ -38,7 +38,7 @@ brew "xcode-build-server"
 
 # web
 cask "google-chrome"
-brew "node"
+brew "node@24"
 brew "pnpm"
 tap "oven-sh/bun"
 brew "bun"
