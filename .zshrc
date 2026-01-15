@@ -85,6 +85,7 @@ alias lg='lazygit'
 
 # Shell integrations
 eval "$(fzf --zsh)"
+eval "$(direnv hook zsh)"
 
 # Starship
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
