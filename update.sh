@@ -169,7 +169,7 @@ cd "$CODE_DIR" || {
 
 # List of repositories to clone
 repositories=(
-  "hedge-ops/app"
+  "hedge-ops/people"
   "hedge-ops/cloud"
   "hedge-ops/website"
   "hedge-ops/homebrew-tap"

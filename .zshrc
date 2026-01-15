@@ -73,7 +73,7 @@ alias gcom='git checkout main'
 alias update='./update.sh' 
 
 # personal 
-alias app='cd ~/source/github/hedge-ops/app/'
+alias app='cd ~/source/github/hedge-ops/people/'
 alias dev='app && code'
 alias people='cd ~/people'
 alias dotfiles='cd ~/dotfiles'
