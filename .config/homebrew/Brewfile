@@ -37,7 +37,7 @@ brew "uv" # manages python, packages, and virtual environments
 brew "steveyegge/beads/bd" # ai task automation
 cask "superwhisper" # voice dictation for ai prompts
 tap "vicentereig/tap"
-brew "plausible"
+brew "vicentereig/tap/plausible"
 
 # swift
 brew "fastlane"
