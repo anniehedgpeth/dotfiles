@@ -86,6 +86,7 @@ alias lg='lazygit'
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(direnv hook zsh)"
+eval "$(mise activate zsh)"
 
 # Starship
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
@@ -104,3 +105,8 @@ if [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/Downloa
 
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"; fi
+
+# Also look at bun (for bunx), then .local (for claude)
+export PATH="$HOME/.bun/bin:$PATH"
+# Aqua gets priority
+export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"

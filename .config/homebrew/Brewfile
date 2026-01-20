@@ -14,36 +14,23 @@ brew "tree"
 brew "jq"
 
 # rust
-brew "cargo-binstall"
-brew "cargo-nextest"
-brew "just"
 brew "libffi"
-brew "rustup"
 
 # cloud
-brew "doctl"
-brew "kubernetes-cli"
-tap "hashicorp/tap"
-brew "hashicorp/tap/terraform"
 cask "ngrok"
 cask "postman"
-brew "stripe/stripe-cli/stripe"
-brew "tflint"
-
-# python
-brew "uv" # manages python, packages, and virtual environments
 
 # ai
-brew "steveyegge/beads/bd" # ai task automation
 cask "superwhisper" # voice dictation for ai prompts
-tap "vicentereig/tap"
-brew "vicentereig/tap/plausible"
+
+# people work dependencies
+brew "aqua" # per-project CLI tool manager
+brew "libyaml" # yaml parsing for ruby gems
+brew "mise" # polyglot tool version manager
+brew "rustup" # rust toolchain manager
 
 # swift
-brew "fastlane"
 brew "ruby-install"
-brew "swiftformat"
-brew "swiftlint"
 brew "xcodegen"
 brew "xcode-build-server"
 
@@ -53,7 +40,6 @@ brew "node@24"
 brew "pnpm"
 tap "oven-sh/bun"
 brew "bun"
-brew "zola"
 brew "imagemagick"
 
 # macOS
