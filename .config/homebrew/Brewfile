@@ -25,6 +25,9 @@ cask "superwhisper" # voice dictation for ai prompts
 
 # people work dependencies
 brew "aqua" # per-project CLI tool manager
+brew "colima" # container runtime for tests and local db
+brew "docker" # CLI only, desktop replaced by colima
+brew "docker-compose" # multi-container orchestration
 brew "libyaml" # yaml parsing for ruby gems
 brew "mise" # polyglot tool version manager
 brew "rustup" # rust toolchain manager

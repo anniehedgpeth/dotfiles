@@ -20,6 +20,16 @@ echo "${GREEN}Removing brew packages no longer needed${RESET}"
 
 brew bundle cleanup --force
 
+
+echo "${GREEN}Ensuring colima is running${RESET}"
+if command -v colima &>/dev/null; then
+  if ! colima status &>/dev/null; then
+    echo "${BLUE}Starting colima...${RESET}"
+    colima start
+  fi
+  brew services start colima 2>/dev/null || true
+fi
+
 echo "${GREEN}Ensuring repositories are cloned${RESET}"
 # Base directory for code repositories
 CODE_DIR="$HOME/source/github"

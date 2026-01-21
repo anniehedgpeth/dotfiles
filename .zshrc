@@ -106,6 +106,9 @@ if [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/Downloa
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"; fi
 
+# Docker (via Colima)
+export DOCKER_HOST="unix://${HOME}/.colima/default/docker.sock" 
+
 # Also look at bun (for bunx), then .local (for claude)
 export PATH="$HOME/.bun/bin:$PATH"
 # Aqua gets priority
