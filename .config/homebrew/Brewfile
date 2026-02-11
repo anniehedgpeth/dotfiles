@@ -21,6 +21,7 @@ cask "ngrok"
 cask "postman"
 
 # ai
+tap "anomalyco/tap"
 brew "anomalyco/tap/opencode"
 cask "codex"
 brew "gemini-cli"
