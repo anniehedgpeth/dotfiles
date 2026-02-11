@@ -21,6 +21,10 @@ cask "ngrok"
 cask "postman"
 
 # ai
+brew "anomalyco/tap/opencode"
+cask "codex"
+brew "gemini-cli"
+cask "claude-code"
 cask "superwhisper" # voice dictation for ai prompts
 
 # people work dependencies

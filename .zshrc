@@ -75,7 +75,6 @@ alias update='./update.sh'
 # personal 
 alias app='cd ~/source/github/hedge-ops/people/'
 alias dev='app && code'
-alias people='cd ~/people'
 alias dotfiles='cd ~/dotfiles'
 alias j='just'
 alias lg='lazygit'
@@ -111,5 +110,6 @@ export DOCKER_HOST="unix://${HOME}/.colima/default/docker.sock"
 
 # Also look at bun (for bunx), then .local (for claude)
 export PATH="$HOME/.bun/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 # Aqua gets priority
 export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
