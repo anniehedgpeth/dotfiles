@@ -36,6 +36,7 @@ brew "docker-compose" # multi-container orchestration
 brew "libyaml" # yaml parsing for ruby gems
 brew "mise" # polyglot tool version manager
 brew "rustup" # rust toolchain manager
+brew "shellcheck"
 
 # swift
 brew "ruby-install"
