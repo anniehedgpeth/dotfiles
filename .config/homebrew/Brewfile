@@ -14,7 +14,7 @@ brew "tree"
 brew "jq"
 
 # business
-brew hledger
+brew "hledger"
 
 # rust
 brew "libffi"
