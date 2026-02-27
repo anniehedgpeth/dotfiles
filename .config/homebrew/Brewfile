@@ -13,6 +13,9 @@ brew "starship"
 brew "tree"
 brew "jq"
 
+# business
+brew hledger
+
 # rust
 brew "libffi"
 
