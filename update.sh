@@ -21,6 +21,15 @@ echo "${GREEN}Removing brew packages no longer needed${RESET}"
 brew bundle cleanup --force
 
 
+echo "${GREEN}Ensuring Android SDK components are installed${RESET}"
+SDKMANAGER="$HOME/Library/Android/sdk/cmdline-tools/latest/bin/sdkmanager"
+if [ -f "$SDKMANAGER" ]; then
+  yes | "$SDKMANAGER" --licenses > /dev/null 2>&1 || true
+  "$SDKMANAGER" "ndk;29.0.14206865"
+else
+  echo "${RED}sdkmanager not found at $SDKMANAGER — skipping Android SDK setup${RESET}"
+fi
+
 echo "${GREEN}Ensuring colima is running${RESET}"
 if command -v colima &>/dev/null; then
   if ! colima status &>/dev/null; then

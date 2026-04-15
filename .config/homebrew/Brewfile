@@ -57,6 +57,7 @@ brew "imagemagick"
 brew "gradle"
 brew "openjdk@21"
 cask "android-studio"
+cask "android-commandlinetools"
 
 # macOS
 cask "slack"
