@@ -53,6 +53,11 @@ tap "oven-sh/bun"
 brew "bun"
 brew "imagemagick"
 
+# java / android
+brew "gradle"
+brew "openjdk@21"
+cask "android-studio"
+
 # macOS
 cask "slack"
 brew "fonttools"
