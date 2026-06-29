@@ -16,7 +16,7 @@
 
 
 [core]
-  editor = code
+	editor = code --wait
   autocrlf = input
 
 [pull]

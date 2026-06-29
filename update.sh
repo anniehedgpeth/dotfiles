@@ -14,6 +14,9 @@ echo "${GREEN}Ensuring brew is up to date${RESET}"
 
 export HOMEBREW_BUNDLE_FILE="$HOME/dotfiles/.config/homebrew/Brewfile"
 
+brew trust --formula anomalyco/tap/opencode
+brew trust --formula oven-sh/bun/bun
+
 brew bundle install
 
 echo "${GREEN}Removing brew packages no longer needed${RESET}"
