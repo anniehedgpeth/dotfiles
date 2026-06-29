@@ -16,6 +16,7 @@ export HOMEBREW_BUNDLE_FILE="$HOME/dotfiles/.config/homebrew/Brewfile"
 
 brew trust --formula anomalyco/tap/opencode
 brew trust --formula oven-sh/bun/bun
+brew trust --formula hedge-ops/homebrew-tap/people
 
 brew bundle install
 

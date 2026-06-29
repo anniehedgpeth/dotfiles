@@ -30,6 +30,10 @@ brew "gemini-cli"
 cask "claude-code"
 cask "superwhisper" # voice dictation for ai prompts
 
+# people
+tap "hedge-ops/homebrew-tap"
+brew "hedge-ops/homebrew-tap/people"
+
 # people work dependencies
 brew "aqua" # per-project CLI tool manager
 brew "colima" # container runtime for tests and local db
